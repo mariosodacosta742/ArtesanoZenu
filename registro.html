@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro - Censo Zenú Viva</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ebony: #1B1B1B;
+      --gold: #CFAE46;
+      --beige: #E6D8B4;
+      --linen: #F8F6F2;
+      --muted: #9A938A;
+      --max-width: 1200px;
+      --shadow: 0 8px 24px rgba(11,11,11,0.45);
+      --transition: 250ms cubic-bezier(.2,.8,.2,1);
+    }
+    body{
+      margin:0;
+      font-family:"Lato",sans-serif;
+      background: linear-gradient(180deg,var(--ebony) 0%,#0f0f0f 100%);
+      color:var(--linen);
+    }
+    header{
+      background:var(--ebony);
+      border-bottom:2px solid rgba(207,174,70,0.06);
+      padding:18px 0;
+      position:sticky;top:0;z-index:40;
+    }
+    .topbar{
+      width:min(96%,var(--max-width));
+      margin:0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .logo-square{
+      width:56px;height:56px;border-radius:10px;
+      background:linear-gradient(135deg,rgba(207,174,70,0.12),rgba(207,174,70,0.06));
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:var(--gold);
+      border:1px solid rgba(207,174,70,0.06);
+      font-family:"Montserrat",sans-serif;
+    }
+    nav.primary{display:flex;gap:18px;}
+    nav.primary a{
+      color:var(--linen);
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius:8px;
+    }
+    nav.primary a:hover{background:rgba(207,174,70,0.06);color:var(--gold);}
+    .decor-strip{
+      height:8px;width:100%;
+      background-image:repeating-linear-gradient(45deg,var(--gold) 0 8px,transparent 8px 16px);
+      opacity:0.8;
+    }
+    main{
+      width:min(96%,var(--max-width));
+      margin:40px auto;
+    }
+    h2{
+      font-family:"Montserrat",sans-serif;
+      color:var(--gold);
+      text-align:center;
+      margin-bottom:24px;
+    }
+    form{
+      background:rgba(255,255,255,0.02);
+      border-radius:12px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(207,174,70,0.04);
+      max-width:700px;
+      margin:0 auto;
+    }
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+      color:var(--beige);
+    }
+    input,select,textarea{
+      width:100%;
+      padding:10px 12px;
+      margin-bottom:14px;
+      border-radius:8px;
+      border:1px solid rgba(207,174,70,0.15);
+      background:rgba(255,255,255,0.05);
+      color:var(--linen);
+      font-size:15px;
+    }
+    textarea{resize:vertical;min-height:80px;}
+    button{
+      background:var(--gold);
+      color:var(--ebony);
+      border:none;
+      padding:12px 20px;
+      border-radius:8px;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+      transition:transform var(--transition);
+    }
+    button:hover{transform:translateY(-3px);}
+    footer{
+      margin-top:40px;
+      padding:28px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.02);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+    .socials a{color:var(--gold);text-decoration:none;font-weight:700;}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo-square">ZV</div>
+        <div>
+          <h1 style="color:var(--gold);margin:0;">Plataforma Zenú Viva</h1>
+          <small style="color:var(--muted);">Tejiendo tradición y futuro</small>
+        </div>
+      </div>
+      <nav class="primary">
+        <a href="Viva.html">Inicio</a>
+        <a href="registro.html" style="color:var(--gold);">Censo</a>
+      </nav>
+    </div>
+    <div class="decor-strip"></div>
+  </header>
+
+  <main>
+    <h2>Registro de Censo Comunitario</h2>
+    <form action="guardar_registro.php" method="POST">
+      <label>Nombre completo</label>
+      <input type="text" name="nombre" required>
+
+      <label>Documento o Cédula</label>
+      <input type="text" name="documento" required>
+
+      <label>Edad</label>
+      <input type="number" name="edad" required>
+
+      <label>Comunidad o Resguardo</label>
+      <input type="text" name="comunidad">
+
+      <label>Dirección</label>
+      <input type="text" name="direccion">
+
+      <label>Teléfono</label>
+      <input type="text" name="telefono">
+
+      <label>Correo electrónico</label>
+      <input type="email" name="correo">
+
+      <label>Actividad u Oficio</label>
+      <input type="text" name="oficio">
+
+      <label>Observaciones</label>
+      <textarea name="observaciones"></textarea>
+
+      <div style="text-align:center;margin-top:20px;">
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    <div>
+      <div style="font-weight:700;color:var(--gold);font-family:'Montserrat';">Zenú Viva</div>
+      <div style="color:var(--linen);font-size:14px;">Censo comunitario digital.</div>
+    </div>
+    <div>
+      <div style="color:var(--muted);font-size:13px;">Síguenos</div>
+      <div class="socials" style="display:flex;gap:12px;">
+        <a href="https://www.instagram.com/zenuviva" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com/zenuviva" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com/@zenuviva" target="_blank">TikTok</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

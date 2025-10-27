@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Plataforma Zenú Viva - Zenú Market</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ebony: #1B1B1B;
+      --gold: #CFAE46;
+      --beige: #E6D8B4;
+      --linen: #F8F6F2;
+      --muted: #9A938A;
+      --max-width: 1200px;
+      --radius: 12px;
+      --transition: 250ms cubic-bezier(.2,.8,.2,1);
+      --shadow: 0 8px 24px rgba(11,11,11,0.45);
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Lato", sans-serif;
+      background: linear-gradient(180deg, var(--ebony) 0%, #0f0f0f 100%);
+      color: var(--linen);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .container{
+      width: min(96%, var(--max-width));
+      margin: 0 auto;
+      padding: 24px 0 80px;
+    }
+
+    /* Header */
+    header{
+      background: var(--ebony);
+      border-bottom: 2px solid rgba(207,174,70,0.06);
+      padding: 18px 0;
+      position: sticky;
+      top:0;
+      z-index: 40;
+      backdrop-filter: blur(4px);
+    }
+    .topbar{
+      width: min(96%, var(--max-width));
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand img{
+      width:60px;
+      height:auto;
+      border-radius:8px;
+    }
+    .brand h1{ margin:0;font-size:18px;color:var(--gold);font-family:"Montserrat"; }
+    nav.primary{ display:flex; gap:18px; align-items:center; }
+    nav.primary a{
+      color:var(--linen); text-decoration:none;
+      font-weight:600; font-size:14px;
+      padding:8px 10px; border-radius:8px;
+    }
+    nav.primary a:hover{ background: rgba(207,174,70,0.06); color:var(--gold); }
+    .hamburger{ display:none; background:transparent; border:none; color:var(--linen); font-size:20px; }
+    .decor-strip{
+      height:8px;width:100%;
+      background-image: repeating-linear-gradient(45deg, var(--gold) 0 8px, transparent 8px 16px);
+      opacity:0.8;
+    }
+
+    /* Hero Section */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 320px;
+      gap:20px;
+      align-items:start;
+      margin-top:20px;
+    }
+
+    /* Carrusel */
+    .carousel{
+      position:relative;
+      border-radius: 14px;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      min-height: 380px;
+    }
+    .carousel a {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+    .carousel a.active { opacity: 1; z-index: 2; }
+    .carousel img {
+      width:100%;
+      height:380px;
+      object-fit:cover;
+      border-radius: 14px;
+      cursor: pointer;
+      filter: brightness(90%);
+      transition: transform 0.6s ease;
+    }
+    .carousel img:hover { transform: scale(1.04); }
+    .carousel .caption{
+      position:absolute;
+      left:32px; bottom:28px;
+      background: rgba(27,27,27,0.55);
+      padding:12px 18px;
+      border-radius:8px;
+      max-width:70%;
+      color:var(--gold);
+      font-family: "Montserrat";
+      font-size:20px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(207,174,70,0.25);
+    }
+    .controls{
+      position:absolute;
+      right:16px; top:50%;
+      transform:translateY(-50%);
+      display:flex; flex-direction:column; gap:8px;
+      z-index:10;
+    }
+    .ctrl-btn{
+      width:44px;height:44px;border-radius:50%;
+      display:grid;place-items:center;
+      cursor:pointer;
+      color:var(--ebony);
+      background:var(--gold);
+      border:none;
+      box-shadow:0 8px 20px rgba(0,0,0,0.35);
+      transition:transform var(--transition);
+    }
+    .ctrl-btn:hover{ transform: translateY(-3px); }
+    .carousel-indicators{
+      position:absolute;
+      left:50%; transform:translateX(-50%);
+      bottom:10px; display:flex; gap:8px;
+    }
+    .carousel-indicators button{
+      width:10px;height:10px;border-radius:50%;
+      border:none;background:rgba(255,255,255,0.18);cursor:pointer;
+    }
+    .carousel-indicators button.active{ background:var(--gold); }
+
+    /* Productos */
+    main.products{ margin-top:40px; }
+    .products-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap:24px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
+      padding:16px;
+      border-radius:12px;
+      border:1px solid rgba(207,174,70,0.04);
+      box-shadow: var(--shadow);
+      text-align:center;
+      transition: transform var(--transition);
+    }
+    .card:hover{ transform: translateY(-6px); }
+    .card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      border-radius:10px;
+      background-color:#222;
+      margin-bottom:12px;
+    }
+    .card h4{
+      margin:8px 0;
+      color:var(--gold);
+      font-family:"Montserrat";
+    }
+    .card p{ color:var(--muted); font-size:14px; }
+    .price{ color:var(--gold); font-weight:700; font-size:15px; margin-top:6px; }
+    .buy-btn{
+      background:var(--gold);
+      color:var(--ebony);
+      border:none;
+      padding:10px 16px;
+      border-radius:8px;
+      font-weight:700;
+      cursor:pointer;
+      margin-top:8px;
+    }
+
+    /* Botón dorado “Como se hizo” */
+    .cta-gold {
+      display: inline-block;
+      background: linear-gradient(135deg, #CFAE46, #e5c76a);
+      color: #1B1B1B;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-family: "Montserrat", sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 18px rgba(207,174,70,0.3);
+    }
+    .cta-gold:hover {
+      background: linear-gradient(135deg, #e5c76a, #CFAE46);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(207,174,70,0.45);
+    }
+
+    /* Footer */
+    footer{
+      margin-top:40px;
+      padding:28px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+    .socials a{ color:var(--gold); text-decoration:none; font-weight:700; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      aside.info{ order:2; }
+      nav.primary{ display:none; }
+      .hamburger{ display:block; }
+    }
+    @media (max-width:600px){
+      .carousel img{ height:220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <img src="img/Logo2.png" alt="Logo Zenú Viva">
+        <div>
+          <h1>Plataforma Zenú Viva</h1>
+          <div style="font-size:12px;color:var(--muted);">Tejiendo tradición y futuro</div>
+        </div>
+      </div>
+      <nav class="primary">
+        <a href="#inicio">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#cultura">Cultura</a>
+        <a href="#contacto">Contacto</a>
+        <a href="registro.html">Censo</a>
+      </nav>
+      <button class="hamburger" id="hambtn">☰</button>
+    </div>
+    <div class="decor-strip"></div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="container" id="inicio">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="carousel" id="carousel">
+        <a href="https://www.instagram.com/zenuviva" target="_blank" class="slide active">
+          <img src="img/Odalis.jpg" alt="Artesana Zenú tejiendo caña flecha">
+          <div class="caption">Tejiendo tradición y futuro</div>
+        </a>
+        <a href="https://www.facebook.com/zenuviva" target="_blank" class="slide">
+          <img src="img/slide2.jpg" alt="Productos artesanales Zenú">
+          <div class="caption">Artesanías que cuentan historias</div>
+        </a>
+        <a href="https://www.tiktok.com/@zenuviva" target="_blank" class="slide">
+          <img src="img/slide3.jpg" alt="Jóvenes Zenú mostrando su arte">
+          <div class="caption">Cultura viva y sostenible</div>
+        </a>
+
+        <div class="controls">
+          <button class="ctrl-btn" id="prev">❮</button>
+          <button class="ctrl-btn" id="next">❯</button>
+        </div>
+        <div class="carousel-indicators" id="carousel-indicators">
+          <button class="active" data-to="0"></button>
+          <button data-to="1"></button>
+          <button data-to="2"></button>
+        </div>
+      </div>
+
+      <aside class="info">
+        <h3>Descubre Zenú Viva</h3>
+        <p>Plataforma digital del Cabildo Indígena Zenú en Medellín. Integramos gestión comunitaria, salud ancestral y un mercado para artesanos.</p>
+        <p><strong>Historia:</strong> Las técnicas de tejido y el conocimiento de las plantas medicinales forman parte de nuestra memoria colectiva.</p>
+        <a href="https://www.youtube.com/watch?v=yqnFlFEHROw" target="_blank" class="cta-gold">🎥 Como se hizo</a>
+      </aside>
+    </section>
+
+    <!-- Productos -->
+    <main class="products" id="productos">
+      <h2 style="font-family:'Montserrat';color:var(--gold);margin:22px 0 10px;">Artesanías Destacadas</h2>
+      <section class="products-grid">
+        <article class="card">
+          <img src="img/Cesta.jpeg" alt="Cesta Zenú">
+          <h4>Cesta Tradicional Zenú</h4>
+          <p>Tejida con caña flecha natural. Representa la unión entre tradición y arte.</p>
+          <div class="price">$120.000</div>
+          <button class="buy-btn">Adquirir</button>
+        </article>
+
+        <article class="card">
+          <img src="img/Sombrero.jpg" alt="Sombrero Zenú">
+          <h4>Sombrero Vueltiao</h4>
+          <p>Emblema cultural colombiano, elaborado con técnicas ancestrales Zenú.</p>
+          <div class="price">$95.000</div>
+          <button class="buy-btn">Adquirir</button>
+        </article>
+
+        <article class="card">
+          <img src="img/Abanico.jpeg" alt="Abanico artesanal">
+          <h4>Abanico Artesanal</h4>
+          <p>Hecho a mano por mujeres artesanas, símbolo de elegancia y tradición.</p>
+          <div class="price">$45.000</div>
+          <button class="buy-btn">Adquirir</button>
+        </article>
+
+        <article class="card">
+          <img src="img/Bolso.jpeg" alt="Bolso Zenú">
+          <h4>Bolso Zenú</h4>
+          <p>Tejido artesanal con chaquiras y símbolos de protección ancestral.</p>
+          <div class="price">$150.000</div>
+          <button class="buy-btn">Adquirir</button>
+        </article>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contacto">
+      <div>
+        <div style="font-weight:700; color:var(--gold); font-family:'Montserrat';">Zenú Viva</div>
+        <div style="color:var(--linen); font-size:14px;">Tejiendo tradición y futuro.</div>
+      </div>
+      <div>
+        <div style="color:var(--muted); font-size:13px;">Síguenos</div>
+        <div class="socials" style="display:flex; gap:12px;">
+          <a href="https://www.instagram.com/zenuviva" target="_blank">Instagram</a>
+          <a href="https://www.facebook.com/zenuviva" target="_blank">Facebook</a>
+          <a href="https://www.tiktok.com/@zenuviva" target="_blank">TikTok</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Script funcional -->
+  <script>
+  // --- Carrusel ---
+  (function(){
+    const slides = document.querySelectorAll('#carousel .slide');
+    const indicators = document.querySelectorAll('#carousel-indicators button');
+    const next = document.getElementById('next');
+    const prev = document.getElementById('prev');
+    let current = 0;
+    let timer;
+
+    function showSlide(index){
+      slides.forEach((slide,i)=>{
+        slide.classList.toggle('active', i===index);
+        indicators[i].classList.toggle('active', i===index);
+      });
+      current = index;
+    }
+
+    function nextSlide(){
+      showSlide((current + 1) % slides.length);
+    }
+
+    function prevSlide(){
+      showSlide((current - 1 + slides.length) % slides.length);
+    }
+
+    function start(){
+      timer = setInterval(nextSlide, 5000);
+    }
+
+    function restart(){
+      clearInterval(timer);
+      start();
+    }
+
+    next.addEventListener('click', ()=>{ nextSlide(); restart(); });
+    prev.addEventListener('click', ()=>{ prevSlide(); restart(); });
+    indicators.forEach((btn, idx)=> btn.addEventListener('click', ()=>{ showSlide(idx); restart(); }));
+
+    start();
+  })();
+
+  // --- Menú responsive ---
+  const ham = document.getElementById('hambtn');
+  const nav = document.querySelector('nav.primary');
+  ham.addEventListener('click', ()=> nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex');
+
+  // --- Confirmación de compra ---
+  const buyButtons = document.querySelectorAll('.buy-btn');
+  buyButtons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const producto = btn.parentElement.querySelector('h4').textContent;
+      const confirmacion = confirm(`¿Deseas adquirir "${producto}"?`);
+      if(confirmacion){
+        alert(`✅ Gracias por tu compra de "${producto}".\nTu pedido será procesado pronto.`);
+      } else {
+        alert(`🛒 Has cancelado la compra de "${producto}".`);
+      }
+    });
+  });
+  </script>
+
+</body>
+</html>
